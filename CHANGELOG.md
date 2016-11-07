@@ -1,0 +1,2 @@
+Verdaccio Cookbook CHANGELOG
+==========================
