@@ -6,6 +6,8 @@ description 'Install a verdaccio NPM server (cache & private repo)
 See : https://github.com/verdaccio/verdaccio/'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '1.0.0'
+source_url 'https://github.com/kgrubb/verdaccio-cookbook'
+issues_url 'https://github.com/kgrubb/verdaccio-cookbook/issues'
 
 supports 'ubuntu', '>= 12.04'
 supports 'redhat'
