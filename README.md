@@ -1,6 +1,6 @@
 # Verdaccio Cookbook
 
-[![CK Version](http://img.shields.io/cookbook/v/verdaccio.svg)](https://supermarket.getchef.com/cookbooks/verdaccio) [![Build Status](https://img.shields.io/travis/redguide/nodejs.svg)](https://travis-ci.org/kgrubb/verdaccio-cookbook)
+[![CK Version](http://img.shields.io/cookbook/v/verdaccio.svg)](https://supermarket.getchef.com/cookbooks/verdaccio) [![Build Status](https://img.shields.io/travis/redguide/nodejs.svg)](https://travis-ci.org/kgrubb/verdaccio-cookbook.svg?branch=master)
 
 [Verdaccio Project](https://github.com/verdaccio/verdaccio/)
 
