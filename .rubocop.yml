@@ -28,5 +28,3 @@ WordArray:
 #  Enabled: false
 #StringLiterals:
 #  Enabled: false
-MethodLength:
-  Max: 40
