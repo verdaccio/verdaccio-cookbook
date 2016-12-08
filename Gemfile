@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rake'
 gem 'berkshelf'
+gem 'rake'
 
 group :test do
   gem 'foodcritic', '~> 8.1.0'
@@ -9,6 +9,6 @@ group :test do
 end
 
 group :integration do
-  gem 'test-kitchen', '~> 1.14.0'
   gem 'kitchen-vagrant', '~> 0.21.1'
+  gem 'test-kitchen', '~> 1.14.0'
 end
