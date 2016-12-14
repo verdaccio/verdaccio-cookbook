@@ -13,10 +13,10 @@ directory node['verdaccio']['confdir'] do
   recursive true
 end
 
-%w(
-  node['verdaccio']['logdir']
+[
+  node['verdaccio']['logdir'],
   node['verdaccio']['datadir']
-).each do |create_dir|
+].each do |create_dir|
   directory create_dir do
     owner node['verdaccio']['user']
     group node['verdaccio']['user']
