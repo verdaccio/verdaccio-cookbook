@@ -3,11 +3,11 @@
 # vi: set ft=ruby :
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VF_API_VERSION = '2'.freeze
+VAGRANTFILE_API_VERSION = '2'.freeze
 
 Vagrant.require_version '>= 1.5.0'
 
-Vagrant.configure(VF_API_VERSION) do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = 'verdaccio-vagrant'
 
   # Set the version of chef to install using the vagrant-omnibus plugin

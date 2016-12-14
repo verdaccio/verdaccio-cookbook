@@ -7,11 +7,10 @@ AllCops:
     - Guardfile
   Exclude:
     - vendor/**/*
+    - Vagrantfile
 
 ClassLength:
   Enabled: false
-MethodLength:
-    Enabled: false
 Documentation:
   Enabled: false
 Encoding:
@@ -22,11 +21,7 @@ LineLength:
   Enabled: false
 SignalException:
   Enabled: false
-#TrailingComma:
-#  Enabled: false
 WordArray:
   Enabled: false
-#AlignParameters:
-#  Enabled: false
-#StringLiterals:
-#  Enabled: false
+MethodLength:
+  Enabled: false
