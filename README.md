@@ -33,7 +33,7 @@ Include `verdaccio` in your node's `run_list`:
 }
 ```
 
-### chef-mailcatcher::default
+### verdaccio::default
 - Configures verdaccio folders (in /etc, /var & /var/log)
 - Installs node + npm from the official repo at the latest version
 - Creates a passwordless verdaccio user who will run the service
