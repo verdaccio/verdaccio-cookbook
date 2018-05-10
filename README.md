@@ -6,6 +6,8 @@
 
 [Original Sinopia cookbook](https://github.com/BarthV/sinopia-cookbook)
 
+[Cheff Supermarket Cookbook](https://supermarket.chef.io/cookbooks/verdaccio)
+
 ## Description
 
 Verdaccio is a fork of sinopia. It is a private/caching npm repository server.
