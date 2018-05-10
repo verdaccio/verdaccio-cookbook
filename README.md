@@ -6,7 +6,7 @@
 
 [Original Sinopia cookbook](https://github.com/BarthV/sinopia-cookbook)
 
-[Cheff Supermarket Cookbook](https://supermarket.chef.io/cookbooks/verdaccio)
+[Chef Supermarket Cookbook](https://supermarket.chef.io/cookbooks/verdaccio)
 
 ## Description
 
