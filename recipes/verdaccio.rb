@@ -23,19 +23,22 @@ end
   end
 end
 
-admin_add_list = []
-
-node['verdaccio']['users'].each do |user, conf|
-  admin_add_list.push(user) if conf['admin']
-end
-
 template "#{node['verdaccio']['confdir']}/config.yaml" do
   source 'config.yaml.erb'
-  variables(
-    admins: admin_add_list
-  )
   mode '0444'
   notifies :restart, 'service[verdaccio]', :delayed
+end
+
+htpasswdEntries = node['verdaccio']['auth']['htpasswd']['users'].collect() do |user, pwdHash|
+    "#{user}:#{pwdHash}"
+end
+
+file ::File.join(node['verdaccio']['auth']['htpasswd']['dir'], 'htpasswd') do
+    content htpasswdEntries.join('\n')
+    mode '0500'
+    owner node['verdaccio']['user']
+    group node['verdaccio']['user']
+    notifies :restart, 'service[verdaccio]', :delayed
 end
 
 logrotate_app 'verdaccio' do
@@ -47,7 +50,7 @@ logrotate_app 'verdaccio' do
 end
 
 case node['platform_family']
-when 'rhel'
+when 'rhel', 'amazon'
   if node['init_package'] == 'systemd'
     template '/usr/lib/systemd/system/verdaccio.service' do
       source 'verdaccio.service.erb'

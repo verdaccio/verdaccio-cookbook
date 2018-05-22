@@ -1,23 +1,16 @@
 # encoding: utf-8
 
+confdir = '/etc/verdaccio'
+
 ## System user running verdaccio
 default['verdaccio']['user'] = 'verdaccio'
 
 ## verdaccio gem version (use nil for latest)
 default['verdaccio']['version'] = nil
 
-## verdaccio users configuration
-default['verdaccio']['admin']['pass'] = 'admin'
-
-default['verdaccio']['users'] = {}
-
-# default['verdaccio']['users']['bob']['pass'] = 'incredible'
-# default['verdaccio']['users']['bob']['admin'] = true
-
-# default['verdaccio']['users']['andy']['pass'] = 'toys'
-# default['verdaccio']['users']['andy']['admin'] = true
-
-# default['verdaccio']['users']['woody']['pass'] = 'buzz'
+default['verdaccio']['auth']['htpasswd']['dir'] = confdir
+default['verdaccio']['auth']['htpasswd']['max_users'] = -1
+default['verdaccio']['auth']['htpasswd']['users'] = {}
 
 ## verdaccio links rewrite URL (url_prefix)
 # default['verdaccio']['public_url'] = 'https://my-npm-private-repo.local/'
@@ -29,7 +22,7 @@ default['verdaccio']['listen'] = nil
 
 ## verdaccio conf directories
 # Parents directory MUST exists !
-default['verdaccio']['confdir'] = '/etc/verdaccio'
+default['verdaccio']['confdir'] = confdir
 default['verdaccio']['logdir'] = '/var/log/verdaccio'
 default['verdaccio']['logdays'] = 30
 default['verdaccio']['datadir'] = '/var/lib/verdaccio'
@@ -37,8 +30,9 @@ default['verdaccio']['loglevel'] = 'warn'
 
 ## NodeJS repo list options
 default['verdaccio']['repos'] = {
-  'npmjs' => 'https://registry.npmjs.org/' # official npmjs repo
-  # 'myrepo' => 'https://myrepo.local/'
+  'npmjs' =>  {
+      'url' => 'https://registry.npmjs.org/' # official npmjs repo,
+  }
 }
 
 default['verdaccio']['mainrepo'] = 'npmjs'
@@ -85,6 +79,10 @@ default['verdaccio']['filters'] = [
 #
 # parameters for stdout and stderr: format: json | pretty
 #  {type: 'stdout', format: 'pretty', level: 'debug'},
+# TODO: don't use a derived attribute here
 default['verdaccio']['logs'] = [
   "{type: 'file', path: '#{File.join(node['verdaccio']['logdir'], 'verdaccio.log')}', level: '#{node['verdaccio']['loglevel']}'}"
 ]
+
+default['verdaccio']['allow_offline_publish'] = false
+default['verdaccio']['enable_web_ui'] = true
