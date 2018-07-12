@@ -3,18 +3,17 @@
 
 storage: <%= node['verdaccio']['datadir'] %>
 
-users:
-  admin:
-    password: <%= Digest::SHA1.hexdigest(node['verdaccio']['admin']['pass']) %>
-<% node['verdaccio']['users'].each do |user,conf| %>
-  <%= user %>:
-    password: <%= Digest::SHA1.hexdigest(conf['pass']) %>
-<% end %>
+auth:
+  htpasswd:
+    file: <%= ::File.join(node['verdaccio']['auth']['htpasswd']['dir'], 'htpasswd') %>
+    max_users: <%= node['verdaccio']['auth']['htpasswd']['max_users'] %>
 
 uplinks:
-<% node['verdaccio']['repos'].each do |name,url| %>
+<% node['verdaccio']['repos'].each do |name,repo| %>
   <%= name %>:
-    url: <%= url %>
+    <% repo.each() do |key, val| %>
+    <%= key %>: <%= val %>
+    <% end %>
 <% end %>
 
 <% if node['verdaccio']['timeout'] %>
@@ -29,39 +28,28 @@ packages:
 <% node['verdaccio']['filters'].each do |filter| %>
   '<%= filter['name'] %>':
   <% if filter['access'] %>
-    <% if filter['access'] == '@admins' %>
-    allow_access: admin <%= @admins.join(' ') %>
-    <% else %>
-    allow_access: admin <%= filter['access'].join(' ') %>
-    <% end %>
+    allow_access: <%= filter['access'].join(' ') %>
   <% else %>
     allow_access: $all
   <% end %>
   <% if filter['publish'] %>
-    <% if filter['publish'] == '@admins' %>
-    allow_publish: admin <%= @admins.join(' ') %>
-    <% else %>
-    allow_publish: admin <%= filter['publish'].join(' ') %>
-    <% end %>
+    allow_publish: <%= filter['publish'].join(' ') %>
   <% else %>
-    allow_publish: admin
-  <% end %>
-  <% if filter['storage'] %>
-    storage: <%= filter['storage'] %>
+    allow_publish: $authenticated
   <% end %>
   <% if filter['proxy'] %>
     proxy: <%= filter['proxy'] %>
   <% end %>
-  <%- wildcard_is_defined ||= (filter['name'] == '*') -%>
+  <%- wildcard_is_defined ||= (filter['name'] == '**') -%>
 <% end %>
 <%- if !wildcard_is_defined -%>
-  '*':
+  '**':
   <% if node['verdaccio']['strict_access'] %>
-    allow_access: admin <%= @admins.join(' ') %>
+    allow_access: $authenticated
   <% else %>
     allow_access: $all
   <% end %>
-    allow_publish: admin <%= @admins.join(' ') %>
+    allow_publish: $authenticated
     proxy: <%= node['verdaccio']['mainrepo'] %>
 <%- end -%>
 
@@ -89,3 +77,9 @@ no_proxy: <%= node['verdaccio']['proxy']['no_proxy'].join(',') %>
 
 max_body_size: <%= node['verdaccio']['max_body_size'] %>
 <% end %>
+
+publish:
+  allow_offline: <%= node['verdaccio']['allow_offline_publish'] %>
+
+web:
+  enable: <%= node['verdaccio']['enable_web_ui'] %>

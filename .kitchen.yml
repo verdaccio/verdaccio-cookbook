@@ -2,22 +2,27 @@
 driver:
   name: vagrant
   vm_hostname: verdaccio-vagrant
-
-driver_config:
-  require_chef_omnibus: true
   customize:
     memory: 512
     natdnsproxy1: 'on'
     natdnshostresolver1: 'on'
 
 platforms:
-- name: ubuntu-12.04
-- name: ubuntu-14.04
-- name: centos-6.5
-- name: centos-7.0
+- name: ubuntu/precise64
+- name: ubuntu/trusty64
+- name: centos/6
+- name: centos/7
+##########################################################################
+# See <https://github.com/test-kitchen/kitchen-ec2> for more documentation
+# on kitchen-ec2
+##########################################################################
+#- name: amazon-2018.03
+#  driver:
+#    name: ec2
 
 provisioner:
   name: chef_zero
+  product_name: chef
 
 suites:
 - name: default

@@ -22,6 +22,7 @@ Tested on:
 * Ubuntu 14.04
 * Centos 6
 * Centos 7
+* Amazon Linux
 
 # Usage
 
