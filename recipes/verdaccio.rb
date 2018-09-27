@@ -5,7 +5,7 @@
 
 require 'digest'
 
-nodejs_npm 'verdaccio' do
+npm_package 'verdaccio' do
   version node['verdaccio']['version']
 end
 
