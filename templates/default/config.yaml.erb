@@ -3,6 +3,33 @@
 
 storage: <%= node['verdaccio']['datadir'] %>
 
+<% if node['verdaccio'].attribute?('verdaccio-ldap') %>
+auth:
+  ldap:
+    type: ldap
+    client_options:
+      url: "<% node['verdaccio']['verdaccio-ldap']['url'] %>"
+      # Only required if you need auth to bind
+      adminDn: "<% node['verdaccio']['verdaccio-ldap']['adminDn'] %>"
+      adminPassword: "<% node['verdaccio']['verdaccio-ldap']['adminPassword'] %>"
+      # Search base for users
+      searchBase: "<% node['verdaccio']['verdaccio-ldap']['searchBase'] %>"
+      searchFilter: "<% node['verdaccio']['verdaccio-ldap']['searchFilter'] %>"
+      # If you are using groups, this is also needed
+      groupDnProperty: "<% node['verdaccio']['verdaccio-ldap']['groupDnProperty'] %>"
+      groupSearchBase: "<% node['verdaccio']['verdaccio-ldap']['groupSearchBase'] %>"
+      # If you have memberOf support on your ldap
+      # searchAttributes: ['*', 'memberOf']
+      # Else, if you don't (use one or the other):
+      groupSearchFilter: "<% node['verdaccio']['verdaccio-ldap']['groupSearchFilter'] %>"
+      #
+      # Optional, default false.
+      # If true, then up to 100 credentials at a time will be cached for 5 minutes.
+      cache: <% node['verdaccio']['verdaccio-ldap']['cache'] %>
+      # Optional
+      reconnect: <% node['verdaccio']['verdaccio-ldap']['reconnect'] %>
+<% end %>
+
 users:
   admin:
     password: <%= Digest::SHA1.hexdigest(node['verdaccio']['admin']['pass']) %>
@@ -30,21 +57,21 @@ packages:
   '<%= filter['name'] %>':
   <% if filter['access'] %>
     <% if filter['access'] == '@admins' %>
-    allow_access: admin <%= @admins.join(' ') %>
+    access: admin <%= @admins.join(' ') %>
     <% else %>
-    allow_access: admin <%= filter['access'].join(' ') %>
+    access: admin <%= filter['access'].join(' ') %>
     <% end %>
   <% else %>
-    allow_access: $all
+    access: $all
   <% end %>
   <% if filter['publish'] %>
     <% if filter['publish'] == '@admins' %>
-    allow_publish: admin <%= @admins.join(' ') %>
+    publish: admin <%= @admins.join(' ') %>
     <% else %>
-    allow_publish: admin <%= filter['publish'].join(' ') %>
+    publish: admin <%= filter['publish'].join(' ') %>
     <% end %>
   <% else %>
-    allow_publish: admin
+    publish: admin
   <% end %>
   <% if filter['storage'] %>
     storage: <%= filter['storage'] %>
@@ -57,11 +84,11 @@ packages:
 <%- if !wildcard_is_defined -%>
   '*':
   <% if node['verdaccio']['strict_access'] %>
-    allow_access: admin <%= @admins.join(' ') %>
+    access: admin <%= @admins.join(' ') %>
   <% else %>
-    allow_access: $all
+    access: $all
   <% end %>
-    allow_publish: admin <%= @admins.join(' ') %>
+    publish: admin <%= @admins.join(' ') %>
     proxy: <%= node['verdaccio']['mainrepo'] %>
 <%- end -%>
 
