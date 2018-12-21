@@ -34,7 +34,7 @@ htpasswdEntries = node['verdaccio']['auth']['htpasswd']['users'].collect() do |u
 end
 
 file ::File.join(node['verdaccio']['auth']['htpasswd']['dir'], 'htpasswd') do
-    content htpasswdEntries.join('\n')
+    content htpasswdEntries.join("\n")
     mode '0500'
     owner node['verdaccio']['user']
     group node['verdaccio']['user']
