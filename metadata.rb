@@ -17,6 +17,6 @@ supports 'fedora'
 supports 'amazon'
 
 depends 'apt'
-depends 'nodejs', '~> 5.0.0'
+depends 'nodejs'
 depends 'user'
 depends 'logrotate'
