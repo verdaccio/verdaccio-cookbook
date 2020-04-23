@@ -1,0 +1,22 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: chef/chefdk
+    steps:
+    - uses: actions/checkout@v2
+      run: |
+        bundle install
+        bundle exec rake style
+
+  # test:
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: chef/chefdk
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     run: kitchen

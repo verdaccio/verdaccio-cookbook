@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-gem 'rake'
+gem 'berkshelf', '~> 7.0', '>= 7.0.9'
+gem 'rake', '~> 13.0', '>= 13.0.1'
 
 group :test do
-  gem 'foodcritic', '~> 14.0.0'
-  gem 'rubocop', '~> 0.58.0'
+  gem 'foodcritic', '~> 16.2'
+  gem 'rubocop', '~> 0.82.0'
 end
 
 group :integration do
-  gem 'kitchen-ec2', '~> 2.2.2'
-  gem 'kitchen-vagrant', '~> 1.3.2'
-  gem 'test-kitchen', '~> 1.22.0'
+  gem 'kitchen-vagrant', '~> 1.6', '>= 1.6.1'
+  gem 'test-kitchen', '~> 2.4'
 end

@@ -10,7 +10,7 @@
 
 ## Description
 
-Verdaccio is a fork of sinopia. It is a private/caching npm repository server.
+Verdaccio is a lightweight private npm proxy registry.
 
 It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
@@ -117,7 +117,7 @@ node['verdaccio']['repos'] = {
 
 - `default['verdaccio']['strict_access']` : When set to `true`, this only allow admin and admin users to access verdaccio repos, default is `false`
 - You can define access & publish filters based on package name under `default['verdaccio']['filters']`
-- Filter format is an Array with one Hash for one rule  
+- Filter format is an Array with one Hash for one rule
 - Wildcard is accepted in the filter name rule
 - Access can be provided to :
  * Default (all)
@@ -186,7 +186,14 @@ See `attributes/default.rb` to view Node & npm install options (version, source/
 
 # Testing
 
-Verdaccio cookbook is bundled with a Vagrantfile. If you have virtualbox and vagrant ready, just fire a `vagrant up` and this will setup a box running Verdaccio and listening 0.0.0.0:4873. Port 4873 is forwaded to your 127.0.0.1:4873 for test purposes.
+```sh
+# install dependencies
+bundle install
+# lint code
+bundle exec rake style
+# run kitchen ci tests
+bundle exec rake integration:kitchen:all
+```
 
 # License and Authors
 
