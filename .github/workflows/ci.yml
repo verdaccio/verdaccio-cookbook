@@ -12,7 +12,7 @@ jobs:
     - name: Check style
       run: |
         apt-get -qq update && apt-get -qq install build-essential
-        bundle install test
+        bundle install --without=integration
         bundle exec rake style
 
   # test:
