@@ -40,3 +40,4 @@ vendor/
 spec/knife.rb
 spec/*.pem
 spec/reports
+berks-cookbooks

@@ -129,14 +129,7 @@ node['verdaccio']['repos'] = {
  * admin account + all admin user : '@admins'
 - Storage value is the name of the folder where filtered packages will be set.
 
-Example :
-```ruby
-node['verdaccio']['filters'] = [
-  {
-    'name' => 'private-*',
-    'storage' => 'private-repo'
-  },
-  {
+Example :cookbook
     'name' => 'admin-*',
     'access' => ['andy', 'woody']
   },
@@ -193,6 +186,15 @@ bundle install
 bundle exec rake style
 # run kitchen ci tests
 bundle exec rake integration:kitchen:all
+```
+
+Vagrantfile Testing:
+
+```sh
+# get cookbooks
+berks vendor
+# run provisioner
+vagrant up
 ```
 
 # License and Authors

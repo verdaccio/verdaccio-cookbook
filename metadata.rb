@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 name 'verdaccio'
 maintainer 'Keli Grubb'
 maintainer_email 'keligrubb324@gmail.com'

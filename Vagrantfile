@@ -28,9 +28,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :chef_zero do |chef|
+    chef.cookbooks_path = 'berks-cookbooks'
     chef.nodes_path = 'nodes'
     chef.roles_path = 'roles'
-    chef.add_recipe 'verdaccio'
+    chef.add_recipe 'verdaccio::default'
     chef.arguments = '--chef-license accept'
   end
 end

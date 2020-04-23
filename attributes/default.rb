@@ -1,5 +1,14 @@
 # encoding: utf-8
 
+# require at least node 10
+case node['platform_family']
+when 'debian'
+  default['nodejs']['repo'] = 'https://deb.nodesource.com/node_10.x'
+when 'rhel', 'amazon'
+  release_ver = platform?('amazon') ? 7 : node['platform_version'].to_i
+  default['nodejs']['repo'] = "https://rpm.nodesource.com/pub_10.x/el/#{release_ver}/$basearch"
+end
+
 confdir = '/etc/verdaccio'
 
 ## System user running verdaccio
@@ -31,7 +40,7 @@ default['verdaccio']['loglevel'] = 'warn'
 ## NodeJS repo list options
 default['verdaccio']['repos'] = {
   'npmjs' =>  {
-      'url' => 'https://registry.npmjs.org/' # official npmjs repo,
+    'url' => 'https://registry.npmjs.org/' # official npmjs repo,
   }
 }
 
