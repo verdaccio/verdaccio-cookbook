@@ -11,6 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Check style
       run: |
+        apt -qq update && apt install -qq make
         bundle install
         bundle exec rake style
 
