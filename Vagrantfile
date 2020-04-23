@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it is not a
   # Vagrant Cloud box and if it doesn't already exist on the user's system.
-  config.vm.box = 'bento/amazonlinux-2'
+  config.vm.box = 'bento/ubuntu-18.04'
 
   config.vm.network :forwarded_port, guest: 4873, host: 4873, auto_correct: true
 
