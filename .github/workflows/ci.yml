@@ -1,0 +1,24 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:slim
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check style
+      run: |
+        apt-get -qq update && apt-get -qq install build-essential
+        bundle install --without=integration
+        bundle exec rake style
+
+  # test:
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: chef/chefdk
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     run: kitchen

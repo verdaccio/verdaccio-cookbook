@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook Name:: verdaccio
 # Recipe:: verdaccio
@@ -5,7 +7,7 @@
 
 require 'digest'
 
-nodejs_npm 'verdaccio' do
+npm_package 'verdaccio' do
   version node['verdaccio']['version']
 end
 
@@ -34,11 +36,11 @@ htpasswdEntries = node['verdaccio']['auth']['htpasswd']['users'].collect() do |u
 end
 
 file ::File.join(node['verdaccio']['auth']['htpasswd']['dir'], 'htpasswd') do
-    content htpasswdEntries.join("\n")
-    mode '0500'
-    owner node['verdaccio']['user']
-    group node['verdaccio']['user']
-    notifies :restart, 'service[verdaccio]', :delayed
+  content htpasswdEntries.join("\n")
+  mode '0500'
+  owner node['verdaccio']['user']
+  group node['verdaccio']['user']
+  notifies :restart, 'service[verdaccio]', :delayed
 end
 
 logrotate_app 'verdaccio' do

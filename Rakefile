@@ -1,4 +1,5 @@
 #!/usr/bin/env rake
+# frozen_string_literal: true
 
 # Style tests. Rubocop and Foodcritic
 namespace :style do
@@ -37,9 +38,6 @@ namespace :integration do
     puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
   end
 end
-
-desc 'Run all tests on Travis'
-task travis: ['style:ruby', 'style:chef']
 
 # Default
 task default: ['style:ruby', 'style:chef']

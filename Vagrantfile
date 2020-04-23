@@ -19,8 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it is not a
   # Vagrant Cloud box and if it doesn't already exist on the user's system.
-  config.vm.box_url = 'https://atlas.hashicorp.com/bento/boxes/ubuntu-14.04'
-  config.vm.box = 'bento/ubuntu-14.04'
+  config.vm.box = 'bento/ubuntu-18.04'
 
   config.vm.network :forwarded_port, guest: 4873, host: 4873, auto_correct: true
 
@@ -28,19 +27,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--memory', '512']
   end
 
-  # Enabling the Berkshelf plugin. To enable this globally, add this configuration
-  # option to your ~/.vagrant.d/Vagrantfile file
-  config.berkshelf.enabled = true
-
   config.vm.provision :chef_zero do |chef|
-    chef.json = {
-      'verdaccio' => {
-        'listen' => ':4873'
-      }
-    }
-
-    chef.run_list = [
-      'recipe[verdaccio::default]'
-    ]
+    chef.cookbooks_path = 'berks-cookbooks'
+    chef.nodes_path = 'nodes'
+    chef.roles_path = 'roles'
+    chef.add_recipe 'verdaccio::default'
+    chef.arguments = '--chef-license accept'
   end
 end
