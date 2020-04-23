@@ -9,6 +9,7 @@ jobs:
       image: chef/chefdk
     steps:
     - uses: actions/checkout@v2
+    - name: Check style
       run: |
         bundle install
         bundle exec rake style
